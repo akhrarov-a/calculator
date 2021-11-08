@@ -26,7 +26,6 @@ const useMonitor = () => {
     monitorValue,
     monitorValueToChange,
     errorMessage,
-    // onChange,
     onBackspaceClick
   };
 };
