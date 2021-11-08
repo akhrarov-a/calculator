@@ -10,4 +10,4 @@ type BaseCalculatorButton = {
   theme: ButtonTheme;
 };
 
-export { BaseCalculatorButton };
+export type { BaseCalculatorButton };

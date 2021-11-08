@@ -35,4 +35,5 @@ enum Actions {
  */
 type ButtonTypes = Numbers | Actions;
 
-export { ButtonTypes, Actions, Numbers };
+export { Actions, Numbers };
+export type { ButtonTypes };

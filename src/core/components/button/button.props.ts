@@ -8,4 +8,4 @@ type ButtonProps = React.HTMLAttributes<HTMLButtonElement> & {
   theme: ButtonTheme;
 };
 
-export { ButtonProps };
+export type { ButtonProps };

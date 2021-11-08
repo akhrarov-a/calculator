@@ -26,6 +26,8 @@
       "@api/*": ["./src/api/*"],
       "@core": ["./src/core/index"],
       "@core/*": ["./src/core/*"],
+      "@store": ["./src/store/index"],
+      "@store/*": ["./src/store/*"],
       "@app": ["./src/modules/app/index"],
       "@app/*": ["./src/modules/app/*"],
       "@calculator": ["./src/modules/calculator/index"],
