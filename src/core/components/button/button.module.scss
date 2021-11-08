@@ -1,0 +1,32 @@
+@import 'src/styles/core.scss';
+
+.button {
+  @include flex(center, center, center);
+
+  cursor: pointer;
+  width: 72px;
+  height: 72px;
+  background-color: $light-grey;
+  border-radius: 1000px;
+  font-weight: 500;
+  font-size: 24px;
+
+  &-theme {
+    &-danger {
+      color: $red;
+    }
+
+    &-action {
+      color: $green;
+    }
+
+    &-simple {
+      color: $black;
+    }
+
+    &-equal {
+      background-color: $light-green;
+      color: $white;
+    }
+  }
+}
