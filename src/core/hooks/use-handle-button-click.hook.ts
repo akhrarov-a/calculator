@@ -2,12 +2,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Actions, ButtonTypes } from '@api';
 import { State } from '@store';
 import {
+  addToHistory,
+  clearHistory,
   setAction,
   setErrorMessage,
   setIsGotResult,
   setMonitorValue,
   setMonitorValueToChange
 } from '@calculator/store';
+import { useGetActionSign } from './use-get-action-sign.hook';
 
 /**
  * Use Handle Button Click
@@ -18,6 +21,19 @@ const useHandleButtonClick = () => {
   const { monitorValue, monitorValueToChange, action, isGotResult } =
     useSelector((state: State) => state.calculator);
 
+  const { getActionSign } = useGetActionSign();
+
+  const addHistory = (code: ButtonTypes, result: number) => {
+    dispatch(
+      addToHistory({
+        action: getActionSign(code as Actions) as string,
+        firstValue: monitorValueToChange,
+        secondValue: monitorValue,
+        result
+      })
+    );
+  };
+
   const setError = (errorMessage: string) => {
     dispatch(setErrorMessage(errorMessage));
   };
@@ -25,17 +41,29 @@ const useHandleButtonClick = () => {
   const handleEqualClick = () => {
     switch (action) {
       case Actions.PLUS: {
-        dispatch(setMonitorValue(monitorValueToChange + monitorValue));
+        const result = monitorValueToChange + monitorValue;
+
+        dispatch(setMonitorValue(result));
+        addHistory(action, result);
+
         break;
       }
 
       case Actions.MINUS: {
-        dispatch(setMonitorValue(monitorValueToChange - monitorValue));
+        const result = monitorValueToChange - monitorValue;
+
+        dispatch(setMonitorValue(result));
+        addHistory(action, result);
+
         break;
       }
 
       case Actions.MULTIPLY: {
-        dispatch(setMonitorValue(monitorValueToChange * monitorValue));
+        const result = monitorValueToChange * monitorValue;
+
+        dispatch(setMonitorValue(result));
+        addHistory(action, result);
+
         break;
       }
 
@@ -45,12 +73,20 @@ const useHandleButtonClick = () => {
           return;
         }
 
-        dispatch(setMonitorValue(monitorValueToChange / monitorValue));
+        const result = monitorValueToChange / monitorValue;
+
+        dispatch(setMonitorValue(result));
+        addHistory(action, result);
+
         break;
       }
 
       case Actions.PERCENTAGE: {
-        dispatch(setMonitorValue((monitorValueToChange * monitorValue) / 100));
+        const result = (monitorValueToChange * monitorValue) / 100;
+
+        dispatch(setMonitorValue(result));
+        addHistory(action, result);
+
         break;
       }
     }
@@ -82,37 +118,47 @@ const useHandleButtonClick = () => {
       }
 
       case code === Actions.PLUS: {
-        dispatch(setMonitorValueToChange(monitorValueToChange + monitorValue));
+        const result = monitorValueToChange + monitorValue;
+
+        dispatch(setMonitorValueToChange(result));
         dispatch(setAction(code));
         dispatch(setMonitorValue(0));
+        if (!!monitorValueToChange) {
+          addHistory(code, result);
+        }
+
         break;
       }
 
       case code === Actions.MINUS: {
         if (!!monitorValueToChange) {
-          dispatch(
-            setMonitorValueToChange(monitorValueToChange - monitorValue)
-          );
+          const result = monitorValueToChange - monitorValue;
+
+          dispatch(setMonitorValueToChange(result));
+          addHistory(code, result);
         } else {
           dispatch(setMonitorValueToChange(monitorValue));
         }
 
         dispatch(setMonitorValue(0));
         dispatch(setAction(code));
+
         break;
       }
 
       case code === Actions.MULTIPLY: {
         if (!!monitorValueToChange) {
-          dispatch(
-            setMonitorValueToChange(monitorValueToChange * monitorValue)
-          );
+          const result = monitorValueToChange * monitorValue;
+
+          dispatch(setMonitorValueToChange(result));
+          addHistory(code, result);
         } else {
           dispatch(setMonitorValueToChange(monitorValue));
         }
 
         dispatch(setAction(code));
         dispatch(setMonitorValue(0));
+
         break;
       }
 
@@ -123,29 +169,33 @@ const useHandleButtonClick = () => {
             return;
           }
 
-          dispatch(
-            setMonitorValueToChange(monitorValueToChange / monitorValue)
-          );
+          const result = monitorValueToChange / monitorValue;
+
+          dispatch(setMonitorValueToChange(result));
+          addHistory(code, result);
         } else {
           dispatch(setMonitorValueToChange(monitorValue));
         }
 
         dispatch(setAction(code));
         dispatch(setMonitorValue(0));
+
         break;
       }
 
       case code === Actions.PERCENTAGE: {
         if (!!monitorValueToChange) {
-          dispatch(
-            setMonitorValueToChange((monitorValueToChange * monitorValue) / 100)
-          );
+          const result = (monitorValueToChange * monitorValue) / 100;
+
+          dispatch(setMonitorValueToChange(result));
+          addHistory(code, result);
         } else {
           dispatch(setMonitorValueToChange(monitorValue));
         }
 
         dispatch(setAction(code));
         dispatch(setMonitorValue(0));
+
         break;
       }
 
@@ -155,6 +205,7 @@ const useHandleButtonClick = () => {
       }
 
       case code === Actions.CLEAR: {
+        dispatch(clearHistory());
         dispatch(setMonitorValue(0));
         dispatch(setMonitorValueToChange(0));
         dispatch(setAction(null));

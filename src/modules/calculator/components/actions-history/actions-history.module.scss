@@ -1,0 +1,39 @@
+@import 'src/styles/core.scss';
+
+.container {
+  @include flex(flex-start, flex-end, column);
+
+  width: 360px;
+  height: 460px;
+  padding: 10px 20px;
+  border: 2px solid $light-grey;
+  border-radius: 5px;
+  overflow-y: scroll;
+}
+
+.history {
+  margin: 20px 10px 20px 0;
+
+  &-action {
+    @include flex(flex-end, center);
+
+    margin-bottom: 5px;
+    margin-left: -5px;
+  }
+
+  &-result {
+    @include flex(flex-end, center);
+
+    p {
+      font-size: 24px;
+      color: $green;
+    }
+  }
+
+  p {
+    padding: 0;
+    margin: 0;
+    font-size: 20px;
+    text-align: right;
+  }
+}

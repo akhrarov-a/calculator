@@ -5,7 +5,7 @@
 }
 
 .calculator {
-  @include flex(flex-end, center, center);
+  @include flex(space-between, center, center);
 
   margin-top: 55px;
 }

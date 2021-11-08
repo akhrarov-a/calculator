@@ -1,5 +1,5 @@
 import { make } from 'redux-chill';
-import { ButtonTypes } from '@api';
+import { ButtonTypes, History } from '@api';
 
 /**
  * Set monitor value
@@ -36,10 +36,24 @@ const setErrorMessage = make('[calculator] set error message').stage(
   (errorMessage: string) => errorMessage
 );
 
+/**
+ * Add to history
+ */
+const addToHistory = make('[calculator] add to history').stage(
+  (history: History) => history
+);
+
+/**
+ * Clear history
+ */
+const clearHistory = make('[calculator] clear history');
+
 export {
   setMonitorValue,
   setMonitorValueToChange,
   setAction,
   setIsGotResult,
-  setErrorMessage
+  setErrorMessage,
+  addToHistory,
+  clearHistory
 };

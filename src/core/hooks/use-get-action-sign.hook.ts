@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import { State } from '@store';
 import { useBaseCalculatorButtons } from './use-base-calculator-buttons.hook';
 import { useMemo } from 'react';
+import { Actions } from '../../api';
 
 /**
  * Use Get Action Sign
@@ -16,7 +17,10 @@ const useGetActionSign = () => {
     [buttons, action]
   );
 
-  return { actionSign: actionSign?.element };
+  const getActionSign = (action: Actions): string | undefined =>
+    buttons.find(({ code }) => code === action)?.element;
+
+  return { actionSign: actionSign?.element, getActionSign };
 };
 
 export { useGetActionSign };

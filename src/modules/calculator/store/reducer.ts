@@ -1,6 +1,8 @@
 import { reducer } from 'redux-chill';
 import { CalculatorState } from './state';
 import {
+  addToHistory,
+  clearHistory,
   setAction,
   setErrorMessage,
   setIsGotResult,
@@ -26,6 +28,12 @@ const calculatorReducer = reducer(new CalculatorState())
   })
   .on(setErrorMessage, (state, payload) => {
     state.errorMessage = payload;
+  })
+  .on(addToHistory, (state, payload) => {
+    state.history.push(payload);
+  })
+  .on(clearHistory, (state) => {
+    state.history = [];
   });
 
 export { calculatorReducer };

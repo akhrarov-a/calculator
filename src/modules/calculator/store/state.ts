@@ -1,4 +1,4 @@
-import { ButtonTypes } from '@api';
+import { ButtonTypes, History } from '@api';
 
 /**
  * Calculator State
@@ -28,6 +28,11 @@ class CalculatorState {
    * Error Message
    */
   public errorMessage = '';
+
+  /**
+   * History
+   */
+  public history: History[] = [];
 }
 
 export { CalculatorState };
