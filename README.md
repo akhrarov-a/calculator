@@ -1,6 +1,6 @@
 # App on Heroku Platform
 
-App Link - https://calculator-cicada.herokuapp.com/
+App Link - https://calculator-cicada.herokuapp.com
 
 # Getting Started with Create React App
 
