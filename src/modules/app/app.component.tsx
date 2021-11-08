@@ -1,14 +1,15 @@
 import React from 'react';
-import { hoc } from '../../core';
-import { useApp } from './app.props';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 /**
  * Renders App
  */
-const App = hoc(useApp, ({ message }) => (
-  <div>
-    <p>{message}</p>
-  </div>
-));
+const App = () => (
+  <BrowserRouter>
+    <Routes>
+      <Route path='/' element={<div>Main Page</div>} />
+    </Routes>
+  </BrowserRouter>
+);
 
 export { App };
