@@ -1,0 +1,11 @@
+@import 'src/styles/core.scss';
+
+.container {
+  padding: 20px 0;
+}
+
+
+
+.calculator {
+  @include flex(flex-end, center, center);
+}

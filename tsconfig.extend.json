@@ -19,14 +19,19 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
     "paths": {
+      "@api": ["./src/api/index"],
+      "@api/*": ["./src/api/*"],
+      "@core": ["./src/core/index"],
+      "@core/*": ["./src/core/*"],
       "@app": ["./src/modules/app/index"],
       "@app/*": ["./src/modules/app/*"],
-      "@core": ["./src/core/index"],
-      "@core/*": ["./src/core/*"]
+      "@calculator": ["./src/modules/calculator/index"],
+      "@calculator/*": ["./src/modules/calculator/*"],
+      "@currency": ["./src/modules/currency/index"],
+      "@currency/*": ["./src/modules/currency/*"]
     }
   }
 }

@@ -1,0 +1,39 @@
+@import 'src/styles/core.scss';
+
+.container {
+  background-color: $black;
+  color: $white;
+}
+
+.header {
+  @include flex(space-between, center, center);
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+.link {
+  padding-bottom: 10px;
+  font-size: 18px;
+  font-weight: 400;
+  text-decoration: none;
+  color: $white;
+  letter-spacing: 1px;
+  transition: border-bottom 0.2s, color 0.2s;
+
+  &:hover {
+    border-bottom: 1px solid darken($white, 20%);
+    color: darken($white, 20%)
+  }
+
+  &:first-of-type {
+    margin-right: 40px;
+  }
+
+  &-active {
+    border-bottom: 1px solid $white;
+  }
+}
