@@ -48,6 +48,11 @@ const useHandleButtonClick = () => {
         dispatch(setMonitorValue(monitorValueToChange / monitorValue));
         break;
       }
+
+      case Actions.PERCENTAGE: {
+        dispatch(setMonitorValue((monitorValueToChange * monitorValue) / 100));
+        break;
+      }
     }
 
     dispatch(setMonitorValueToChange(0));
@@ -120,6 +125,20 @@ const useHandleButtonClick = () => {
 
           dispatch(
             setMonitorValueToChange(monitorValueToChange / monitorValue)
+          );
+        } else {
+          dispatch(setMonitorValueToChange(monitorValue));
+        }
+
+        dispatch(setAction(code));
+        dispatch(setMonitorValue(0));
+        break;
+      }
+
+      case code === Actions.PERCENTAGE: {
+        if (!!monitorValueToChange) {
+          dispatch(
+            setMonitorValueToChange((monitorValueToChange * monitorValue) / 100)
           );
         } else {
           dispatch(setMonitorValueToChange(monitorValue));
