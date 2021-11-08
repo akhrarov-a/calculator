@@ -1,8 +1,7 @@
-import { ChangeEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '@store';
 import { useGetActionSign } from '@core';
-import { setIsGotResult, setMonitorValue } from '../../store';
+import { setMonitorValue } from '../../store';
 
 /**
  * Use Monitor
@@ -12,21 +11,9 @@ const useMonitor = () => {
 
   const { actionSign } = useGetActionSign();
 
-  const { monitorValue, monitorValueToChange, isGotResult, errorMessage } =
-    useSelector((state: State) => state.calculator);
-
-  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
-    let value = event.target.value;
-
-    if (isNaN(+value)) return;
-
-    if (isGotResult) {
-      value = value.replace(`${monitorValue}`, '');
-      dispatch(setIsGotResult(false));
-    }
-
-    dispatch(setMonitorValue(+value));
-  };
+  const { monitorValue, monitorValueToChange, errorMessage } = useSelector(
+    (state: State) => state.calculator
+  );
 
   const onBackspaceClick = () => {
     const value = +`${monitorValue}`.slice(0, -1);
@@ -39,7 +26,7 @@ const useMonitor = () => {
     monitorValue,
     monitorValueToChange,
     errorMessage,
-    onChange,
+    // onChange,
     onBackspaceClick
   };
 };

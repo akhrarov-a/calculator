@@ -13,7 +13,6 @@ const Monitor = hoc(
     monitorValue,
     monitorValueToChange,
     errorMessage,
-    onChange,
     onBackspaceClick
   }) => (
     <div className={styles.monitor}>
@@ -25,10 +24,9 @@ const Monitor = hoc(
       )}
       <input
         type='text'
+        readOnly
         className={styles.input}
-        autoFocus
         value={monitorValue}
-        onChange={onChange}
       />
       <div className={styles.backspace} onClick={onBackspaceClick}>
         {!!errorMessage && <p>{errorMessage}</p>}&#9003;
