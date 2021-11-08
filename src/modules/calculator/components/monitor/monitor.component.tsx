@@ -12,6 +12,7 @@ const Monitor = hoc(
     actionSign,
     monitorValue,
     monitorValueToChange,
+    errorMessage,
     onChange,
     onBackspaceClick
   }) => (
@@ -29,9 +30,9 @@ const Monitor = hoc(
         value={monitorValue}
         onChange={onChange}
       />
-      <p className={styles.backspace} onClick={onBackspaceClick}>
-        &#9003;
-      </p>
+      <div className={styles.backspace} onClick={onBackspaceClick}>
+        {!!errorMessage && <p>{errorMessage}</p>}&#9003;
+      </div>
     </div>
   )
 );

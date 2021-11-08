@@ -23,6 +23,11 @@ class CalculatorState {
    * Is got result
    */
   public isGotResult = false;
+
+  /**
+   * Error Message
+   */
+  public errorMessage = '';
 }
 
 export { CalculatorState };

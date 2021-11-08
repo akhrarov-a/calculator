@@ -2,6 +2,7 @@ import { reducer } from 'redux-chill';
 import { CalculatorState } from './state';
 import {
   setAction,
+  setErrorMessage,
   setIsGotResult,
   setMonitorValue,
   setMonitorValueToChange
@@ -22,6 +23,9 @@ const calculatorReducer = reducer(new CalculatorState())
   })
   .on(setIsGotResult, (state, payload) => {
     state.isGotResult = payload;
+  })
+  .on(setErrorMessage, (state, payload) => {
+    state.errorMessage = payload;
   });
 
 export { calculatorReducer };

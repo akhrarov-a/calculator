@@ -29,4 +29,17 @@ const setIsGotResult = make('[calculator] set is got result').stage(
   (value: boolean) => value
 );
 
-export { setMonitorValue, setMonitorValueToChange, setAction, setIsGotResult };
+/**
+ * Set error message
+ */
+const setErrorMessage = make('[calculator] set error message').stage(
+  (errorMessage: string) => errorMessage
+);
+
+export {
+  setMonitorValue,
+  setMonitorValueToChange,
+  setAction,
+  setIsGotResult,
+  setErrorMessage
+};

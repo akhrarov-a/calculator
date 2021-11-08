@@ -12,9 +12,8 @@ const useMonitor = () => {
 
   const { actionSign } = useGetActionSign();
 
-  const { monitorValue, monitorValueToChange, isGotResult } = useSelector(
-    (state: State) => state.calculator
-  );
+  const { monitorValue, monitorValueToChange, isGotResult, errorMessage } =
+    useSelector((state: State) => state.calculator);
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     let value = event.target.value;
@@ -39,6 +38,7 @@ const useMonitor = () => {
     actionSign,
     monitorValue,
     monitorValueToChange,
+    errorMessage,
     onChange,
     onBackspaceClick
   };
