@@ -21,7 +21,7 @@ const Currency = hoc(
         <div className={styles.currency}>
           <select
             value={firstSelected?.name}
-            onChange={(event) => onSelect('first', event.target.selectedIndex)}
+            onChange={(event) => onSelect('first', event.target.value)}
           >
             {currencies.map(({ name, rate }) => (
               <option label={name} key={`${name}-${rate}`} value={name} />
@@ -36,7 +36,7 @@ const Currency = hoc(
         <div className={styles.currency}>
           <select
             value={secondSelected?.name}
-            onChange={(event) => onSelect('second', event.target.selectedIndex)}
+            onChange={(event) => onSelect('second', event.target.value)}
           >
             {currencies.map(({ name, rate }) => (
               <option label={name} key={`${name}-${rate}`} value={name} />

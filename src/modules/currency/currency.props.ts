@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { State } from '@store';
 import { useEffect } from 'react';
 import { getCurrencyData, setSelected, setValues } from './store';
+import { Currency } from '../../api';
 
 /**
  * Use Currency
@@ -13,21 +14,27 @@ const useCurrency = () => {
     (state: State) => state.currency
   );
 
-  const onValuesChange = (key: 'first' | 'second', value: string | number) => {
+  const onValuesChange = (
+    key: 'first' | 'second',
+    value: string | number,
+    changedCurrency?: Currency
+  ) => {
+    if (isNaN(+value)) return;
+
     switch (key) {
       case 'first': {
-        const second =
-          (+value * (secondSelected?.rate as number)) /
-          (firstSelected?.rate as number);
+        const rate = (changedCurrency?.rate || secondSelected?.rate) as number;
+
+        const second = (+value * rate) / (firstSelected?.rate as number);
 
         dispatch(setValues({ first: +value, second }));
 
         break;
       }
       case 'second': {
-        const first =
-          (+value * (firstSelected?.rate as number)) /
-          (secondSelected?.rate as number);
+        const rate = (changedCurrency?.rate || firstSelected?.rate) as number;
+
+        const first = (+value * rate) / (secondSelected?.rate as number);
 
         dispatch(setValues({ first, second: +value }));
 
@@ -36,15 +43,16 @@ const useCurrency = () => {
     }
   };
 
-  const onSelect = (key: 'first' | 'second', index: number) => {
-    const currency = currencies.find((_, i) => i === index);
+  const onSelect = (key: 'first' | 'second', value: string) => {
+    const currency = currencies.find(({ name }) => name === value);
 
     if (!currency) return;
 
     dispatch(setSelected[key](currency));
     onValuesChange(
       key === 'first' ? 'second' : 'first',
-      key === 'first' ? values.second : values.first
+      key === 'first' ? values.second : values.first,
+      currency
     );
   };
 
