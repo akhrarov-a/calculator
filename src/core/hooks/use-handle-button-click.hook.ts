@@ -19,10 +19,15 @@ const useHandleButtonClick = () => {
 
   const handleEqualClick = () => {
     dispatch(setMonitorValueToChange(0));
+    dispatch(setAction(null));
 
     switch (action) {
       case Actions.PLUS: {
         dispatch(setMonitorValue(monitorValueToChange + monitorValue));
+        break;
+      }
+      case Actions.MINUS: {
+        dispatch(setMonitorValue(monitorValueToChange - monitorValue));
         break;
       }
     }
@@ -35,14 +40,27 @@ const useHandleButtonClick = () => {
         break;
       }
       case code === Actions.CLEAR: {
-        dispatch(setMonitorValue(0));
         dispatch(setMonitorValueToChange(0));
         dispatch(setAction(null));
         break;
       }
       case code === Actions.PLUS: {
         dispatch(setMonitorValueToChange(monitorValueToChange + monitorValue));
-        dispatch(setMonitorValue(0));
+        dispatch(setAction(code));
+        break;
+      }
+      case code === Actions.MINUS: {
+        console.log(monitorValue, monitorValueToChange);
+        if (!!monitorValueToChange) {
+          console.log('has');
+          dispatch(
+            setMonitorValueToChange(monitorValueToChange - monitorValue)
+          );
+        } else {
+          console.log('no');
+          dispatch(setMonitorValueToChange(monitorValue));
+        }
+
         dispatch(setAction(code));
         break;
       }
@@ -51,6 +69,10 @@ const useHandleButtonClick = () => {
         break;
       }
     }
+
+    if (code === Actions.EQUAL || !isNaN(+code)) return;
+
+    dispatch(setMonitorValue(0));
   };
 
   return { handleClick };

@@ -16,7 +16,7 @@ const Monitor = hoc(
     onBackspaceClick
   }) => (
     <div className={styles.monitor}>
-      {!!monitorValueToChange && (
+      {!!actionSign && (
         <div className={styles.process}>
           <p>{monitorValueToChange}</p>
           <p dangerouslySetInnerHTML={{ __html: `${actionSign}` }} />
