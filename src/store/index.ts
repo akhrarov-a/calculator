@@ -36,3 +36,5 @@ const createStore = () => {
 const store = createStore();
 
 export { store };
+
+export * from './state';

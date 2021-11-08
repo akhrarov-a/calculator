@@ -1,6 +1,11 @@
 /**
  * Calculator State
  */
-class CalculatorState {}
+class CalculatorState {
+  /**
+   * Monitor value
+   */
+  public monitorValue = 0;
+}
 
 export { CalculatorState };
