@@ -9,7 +9,9 @@ import { setMonitorValue } from '../../store';
 const useMonitor = () => {
   const dispatch = useDispatch();
 
-  const { monitorValue } = useSelector((state: State) => state.calculator);
+  const { monitorValue, monitorValueToChange } = useSelector(
+    (state: State) => state.calculator
+  );
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
@@ -25,7 +27,12 @@ const useMonitor = () => {
     dispatch(setMonitorValue(value));
   };
 
-  return { monitorValue, onChange, onBackspaceClick };
+  return {
+    monitorValue,
+    monitorValueToChange,
+    onChange,
+    onBackspaceClick
+  };
 };
 
 export { useMonitor };

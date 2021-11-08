@@ -8,8 +8,9 @@ import styles from './monitor.module.scss';
  */
 const Monitor = hoc(
   useMonitor,
-  ({ monitorValue, onChange, onBackspaceClick }) => (
+  ({ monitorValue, monitorValueToChange, onChange, onBackspaceClick }) => (
     <div className={styles.monitor}>
+      {!!monitorValueToChange && <p>{monitorValueToChange}</p>}
       <input
         type='text'
         className={styles.input}
