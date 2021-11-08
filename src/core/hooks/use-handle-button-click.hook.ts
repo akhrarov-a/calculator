@@ -149,6 +149,11 @@ const useHandleButtonClick = () => {
         break;
       }
 
+      case code === Actions.CHANGE_SIGN: {
+        dispatch(setMonitorValue(-monitorValue));
+        break;
+      }
+
       case code === Actions.CLEAR: {
         dispatch(setMonitorValue(0));
         dispatch(setMonitorValueToChange(0));
