@@ -22,4 +22,11 @@ const setAction = make('[calculator] set action').stage(
   (value: ButtonTypes | null) => value
 );
 
-export { setMonitorValue, setMonitorValueToChange, setAction };
+/**
+ * Set is got result
+ */
+const setIsGotResult = make('[calculator] set is got result').stage(
+  (value: boolean) => value
+);
+
+export { setMonitorValue, setMonitorValueToChange, setAction, setIsGotResult };

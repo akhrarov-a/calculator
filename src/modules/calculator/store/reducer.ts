@@ -1,6 +1,11 @@
 import { reducer } from 'redux-chill';
 import { CalculatorState } from './state';
-import { setAction, setMonitorValue, setMonitorValueToChange } from './actions';
+import {
+  setAction,
+  setIsGotResult,
+  setMonitorValue,
+  setMonitorValueToChange
+} from './actions';
 
 /**
  * Calculator Reducer
@@ -14,6 +19,9 @@ const calculatorReducer = reducer(new CalculatorState())
   })
   .on(setAction, (state, payload) => {
     state.action = payload;
+  })
+  .on(setIsGotResult, (state, payload) => {
+    state.isGotResult = payload;
   });
 
 export { calculatorReducer };

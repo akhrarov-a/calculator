@@ -1,4 +1,4 @@
-import { calculatorReducer } from '../modules/calculator';
+import { calculatorReducer } from '@calculator/store';
 
 /**
  * Root Reducer

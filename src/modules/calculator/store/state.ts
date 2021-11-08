@@ -18,6 +18,11 @@ class CalculatorState {
    * Action
    */
   public action: ButtonTypes | null = null;
+
+  /**
+   * Is got result
+   */
+  public isGotResult = false;
 }
 
 export { CalculatorState };

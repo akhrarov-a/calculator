@@ -3,9 +3,10 @@ import { Actions, ButtonTypes } from '@api';
 import { State } from '@store';
 import {
   setAction,
+  setIsGotResult,
   setMonitorValue,
   setMonitorValueToChange
-} from '@calculator';
+} from '@calculator/store';
 
 /**
  * Use Handle Button Click
@@ -13,13 +14,13 @@ import {
 const useHandleButtonClick = () => {
   const dispatch = useDispatch();
 
-  const { monitorValue, monitorValueToChange, action } = useSelector(
-    (state: State) => state.calculator
-  );
+  const { monitorValue, monitorValueToChange, action, isGotResult } =
+    useSelector((state: State) => state.calculator);
 
   const handleEqualClick = () => {
     dispatch(setMonitorValueToChange(0));
     dispatch(setAction(null));
+    dispatch(setIsGotResult(true));
 
     switch (action) {
       case Actions.PLUS: {
@@ -30,49 +31,69 @@ const useHandleButtonClick = () => {
         dispatch(setMonitorValue(monitorValueToChange - monitorValue));
         break;
       }
+      case Actions.MULTIPLY: {
+        dispatch(setMonitorValue(monitorValueToChange * monitorValue));
+        break;
+      }
     }
   };
 
   const handleClick = (code: ButtonTypes) => {
     switch (true) {
       case !isNaN(+code): {
-        dispatch(setMonitorValue(+`${monitorValue}${code}`));
-        break;
-      }
-      case code === Actions.CLEAR: {
-        dispatch(setMonitorValueToChange(0));
-        dispatch(setAction(null));
-        break;
-      }
-      case code === Actions.PLUS: {
-        dispatch(setMonitorValueToChange(monitorValueToChange + monitorValue));
-        dispatch(setAction(code));
-        break;
-      }
-      case code === Actions.MINUS: {
-        console.log(monitorValue, monitorValueToChange);
-        if (!!monitorValueToChange) {
-          console.log('has');
-          dispatch(
-            setMonitorValueToChange(monitorValueToChange - monitorValue)
-          );
-        } else {
-          console.log('no');
-          dispatch(setMonitorValueToChange(monitorValue));
+        let value = `${monitorValue}${code}`;
+
+        if (isGotResult) {
+          value = value.replace(`${monitorValue}`, '');
+          dispatch(setIsGotResult(false));
         }
 
-        dispatch(setAction(code));
+        dispatch(setMonitorValue(+value));
         break;
       }
       case code === Actions.EQUAL: {
         handleEqualClick();
         break;
       }
+      case code === Actions.PLUS: {
+        dispatch(setMonitorValueToChange(monitorValueToChange + monitorValue));
+        dispatch(setAction(code));
+        dispatch(setMonitorValue(0));
+        break;
+      }
+      case code === Actions.MINUS: {
+        if (!!monitorValueToChange) {
+          dispatch(
+            setMonitorValueToChange(monitorValueToChange - monitorValue)
+          );
+        } else {
+          dispatch(setMonitorValueToChange(monitorValue));
+        }
+
+        dispatch(setMonitorValue(0));
+        dispatch(setAction(code));
+        break;
+      }
+      case code === Actions.MULTIPLY: {
+        if (!!monitorValueToChange) {
+          dispatch(
+            setMonitorValueToChange(monitorValueToChange * monitorValue)
+          );
+        } else {
+          dispatch(setMonitorValueToChange(monitorValue));
+        }
+
+        dispatch(setAction(code));
+        dispatch(setMonitorValue(0));
+        break;
+      }
+      case code === Actions.CLEAR: {
+        dispatch(setMonitorValue(0));
+        dispatch(setMonitorValueToChange(0));
+        dispatch(setAction(null));
+        break;
+      }
     }
-
-    if (code === Actions.EQUAL || !isNaN(+code)) return;
-
-    dispatch(setMonitorValue(0));
   };
 
   return { handleClick };

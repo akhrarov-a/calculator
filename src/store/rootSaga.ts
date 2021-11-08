@@ -1,4 +1,4 @@
-import { CalculatorSaga } from '@calculator';
+import { CalculatorSaga } from '@calculator/store';
 
 /**
  * Root Saga

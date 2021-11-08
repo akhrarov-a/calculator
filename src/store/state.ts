@@ -1,4 +1,4 @@
-import { CalculatorState } from '../modules/calculator';
+import { CalculatorState } from '@calculator/store';
 
 /**
  * App State
