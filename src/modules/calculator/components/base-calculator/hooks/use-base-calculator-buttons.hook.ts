@@ -21,7 +21,7 @@ const useBaseCalculatorButtons = (): BaseCalculatorButton[] => [
     theme: ButtonTheme.ACTION
   },
   {
-    element: '&#247;',
+    element: '<p>&#247;</p>',
     code: Actions.DIVIDE,
     theme: ButtonTheme.ACTION
   },
@@ -41,7 +41,7 @@ const useBaseCalculatorButtons = (): BaseCalculatorButton[] => [
     theme: ButtonTheme.SIMPLE
   },
   {
-    element: '&#215;',
+    element: '<p>&#215;</p>',
     code: Actions.MULTIPLY,
     theme: ButtonTheme.ACTION
   },
@@ -61,7 +61,7 @@ const useBaseCalculatorButtons = (): BaseCalculatorButton[] => [
     theme: ButtonTheme.SIMPLE
   },
   {
-    element: '&#8722;',
+    element: '<p>&#8722;</p>',
     code: Actions.MINUS,
     theme: ButtonTheme.ACTION
   },
@@ -81,12 +81,12 @@ const useBaseCalculatorButtons = (): BaseCalculatorButton[] => [
     theme: ButtonTheme.SIMPLE
   },
   {
-    element: '&#43;',
+    element: '<p>&#43;</p>',
     code: Actions.PLUS,
     theme: ButtonTheme.ACTION
   },
   {
-    element: '&#177;',
+    element: '<p>&#177;</p>',
     code: Actions.CHANGE_SIGN,
     theme: ButtonTheme.SIMPLE
   },
@@ -96,12 +96,12 @@ const useBaseCalculatorButtons = (): BaseCalculatorButton[] => [
     theme: ButtonTheme.SIMPLE
   },
   {
-    element: '&#44;',
+    element: '<p>&#44;</p>',
     code: Actions.ADD_COMMA,
     theme: ButtonTheme.SIMPLE
   },
   {
-    element: '&#61;',
+    element: '<p>&#61;</p>',
     code: Actions.EQUAL,
     theme: ButtonTheme.EQUAL
   }

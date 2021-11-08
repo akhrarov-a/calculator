@@ -10,7 +10,7 @@ const BaseCalculator = hoc(useBaseCalculator, ({ buttons, handleClick }) => (
   <div className={styles.container}>
     {buttons.map(({ element, code, theme }) => (
       <Button key={code} theme={theme} onClick={() => handleClick(code)}>
-        <p dangerouslySetInnerHTML={{ __html: `${element}` }} />
+        <div dangerouslySetInnerHTML={{ __html: `${element}` }} />
       </Button>
     ))}
   </div>

@@ -2,4 +2,10 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 10px;
+
+  p {
+    margin-top: 3vh;
+    font-size: 36px;
+    font-weight: 400;
+  }
 }
