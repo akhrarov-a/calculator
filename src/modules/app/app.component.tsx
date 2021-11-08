@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Calculator } from '@calculator';
 import { Currency } from '@currency';
 import { Header } from '@core';
+import { NotFound } from './components';
 import styles from './app.module.scss';
 
 /**
@@ -15,7 +16,7 @@ const App = () => (
       <Routes>
         <Route path='/calculator' element={<Calculator />} />
         <Route path='/currency' element={<Currency />} />
-        <Route path='*' element={<div>Not Found</div>} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </div>
   </BrowserRouter>
