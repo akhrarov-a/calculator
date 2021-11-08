@@ -1,5 +1,5 @@
 import { make } from 'redux-chill';
-import { ButtonTypes } from '../../../api';
+import { ButtonTypes } from '@api';
 
 /**
  * Set monitor value

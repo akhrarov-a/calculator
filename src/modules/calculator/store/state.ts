@@ -1,8 +1,8 @@
+import { ButtonTypes } from '@api';
+
 /**
  * Calculator State
  */
-import { ButtonTypes } from '../../../api';
-
 class CalculatorState {
   /**
    * Monitor value
