@@ -1,5 +1,5 @@
 import { BaseCalculatorButton } from '@api';
-import { Actions, ButtonTheme, Numbers } from '../../../../../api';
+import { Actions, ButtonTheme, Numbers } from '../../api';
 
 /**
  * Use Base Calculator Buttons

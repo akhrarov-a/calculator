@@ -8,9 +8,20 @@ import styles from './monitor.module.scss';
  */
 const Monitor = hoc(
   useMonitor,
-  ({ monitorValue, monitorValueToChange, onChange, onBackspaceClick }) => (
+  ({
+    actionSign,
+    monitorValue,
+    monitorValueToChange,
+    onChange,
+    onBackspaceClick
+  }) => (
     <div className={styles.monitor}>
-      {!!monitorValueToChange && <p>{monitorValueToChange}</p>}
+      {!!monitorValueToChange && (
+        <div className={styles.process}>
+          <p>{monitorValueToChange}</p>
+          <p dangerouslySetInnerHTML={{ __html: `${actionSign}` }} />
+        </div>
+      )}
       <input
         type='text'
         className={styles.input}

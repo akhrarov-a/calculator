@@ -1,6 +1,7 @@
 import { ChangeEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '@store';
+import { useGetActionSign } from '@core';
 import { setMonitorValue } from '../../store';
 
 /**
@@ -8,6 +9,8 @@ import { setMonitorValue } from '../../store';
  */
 const useMonitor = () => {
   const dispatch = useDispatch();
+
+  const { actionSign } = useGetActionSign();
 
   const { monitorValue, monitorValueToChange } = useSelector(
     (state: State) => state.calculator
@@ -28,6 +31,7 @@ const useMonitor = () => {
   };
 
   return {
+    actionSign,
     monitorValue,
     monitorValueToChange,
     onChange,

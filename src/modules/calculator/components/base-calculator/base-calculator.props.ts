@@ -1,5 +1,4 @@
-import { useHandleButtonClick } from '@core';
-import { useBaseCalculatorButtons } from './hooks';
+import { useBaseCalculatorButtons, useHandleButtonClick } from '@core';
 
 /**
  * Use Base Calculator

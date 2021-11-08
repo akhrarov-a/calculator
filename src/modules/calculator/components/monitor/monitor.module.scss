@@ -10,6 +10,19 @@
   text-align: right;
 }
 
+.process {
+  @include flex(flex-end, center, center);
+
+  color: $grey;
+  font-size: 18px;
+
+  p {
+    &:first-of-type {
+      margin-right: 3px;
+    }
+  }
+}
+
 .input {
   position: absolute;
   bottom: 0;
