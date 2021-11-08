@@ -1,8 +1,6 @@
-import { CalculatorSaga } from '@calculator/store';
-
 /**
  * Root Saga
  */
-const rootSaga = [new CalculatorSaga()];
+const rootSaga: any[] = [];
 
 export { rootSaga };
