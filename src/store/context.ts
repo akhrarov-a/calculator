@@ -1,7 +1,12 @@
+import { CurrencyService } from '@api';
+
 /**
  * Get Context
  */
-const getContext = () => ({});
+
+const getContext = () => ({
+  currency: new CurrencyService()
+});
 
 /**
  * Store Context

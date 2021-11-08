@@ -20,6 +20,8 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "noEmit": true,
+    "experimentalDecorators": false,
+    "noImplicitAny": false,
     "jsx": "react-jsx",
     "paths": {
       "@api": ["./src/api/index"],

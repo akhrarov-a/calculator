@@ -1,0 +1,21 @@
+@import 'src/styles/core.scss';
+
+.container {
+  @include flex(space-between, center);
+
+  padding: 30px 100px;
+}
+
+.currency {
+  @include flex(center, flex-start, column);
+
+  select {
+    width: 80px;
+    margin-bottom: 20px;
+  }
+
+  input {
+    height: 40px;
+    font-size: 20px;
+  }
+}

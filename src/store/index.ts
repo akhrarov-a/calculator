@@ -38,3 +38,4 @@ const store = createStore();
 export { store };
 
 export * from './state';
+export * from './context';

@@ -1,6 +1,8 @@
+import { CurrencySaga } from '@currency/store';
+
 /**
  * Root Saga
  */
-const rootSaga: any[] = [];
+const rootSaga = [new CurrencySaga()];
 
 export { rootSaga };
