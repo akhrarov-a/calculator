@@ -5,7 +5,7 @@ import { ButtonTypes, History } from '@api';
  * Set monitor value
  */
 const setMonitorValue = make('[calculator] set monitor value').stage(
-  (value: number) => value
+  (value: string) => value
 );
 
 /**
@@ -13,7 +13,7 @@ const setMonitorValue = make('[calculator] set monitor value').stage(
  */
 const setMonitorValueToChange = make(
   '[calculator] set monitor value to change'
-).stage((value: number) => value);
+).stage((value: string) => value);
 
 /**
  * Set action

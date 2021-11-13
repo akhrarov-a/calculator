@@ -3,9 +3,9 @@
  */
 type History = {
   action: string;
-  result: number;
-  firstValue: number;
-  secondValue: number;
+  result: string;
+  firstValue: string;
+  secondValue: string;
 };
 
 export type { History };

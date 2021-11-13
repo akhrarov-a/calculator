@@ -16,7 +16,7 @@ const useMonitor = () => {
     useSelector((state: State) => state.calculator);
 
   const onBackspaceClick = () => {
-    const value = +`${monitorValue}`.slice(0, -1);
+    const value = `${monitorValue}`.slice(0, -1);
 
     dispatch(setMonitorValue(value));
   };
@@ -27,8 +27,8 @@ const useMonitor = () => {
 
   return {
     actionSign,
-    monitorValue,
-    monitorValueToChange,
+    monitorValue: monitorValue.replace('.', ','),
+    monitorValueToChange: monitorValueToChange.replace('.', ','),
     errorMessage,
     onBackspaceClick
   };

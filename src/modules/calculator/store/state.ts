@@ -7,12 +7,12 @@ class CalculatorState {
   /**
    * Monitor value
    */
-  public monitorValue = 0;
+  public monitorValue = '0';
 
   /**
    * Monitor value to change
    */
-  public monitorValueToChange = 0;
+  public monitorValueToChange = '0';
 
   /**
    * Action

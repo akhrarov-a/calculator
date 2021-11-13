@@ -23,13 +23,13 @@ const useHandleButtonClick = () => {
 
   const { getActionSign } = useGetActionSign();
 
-  const addHistory = (code: ButtonTypes, result: number) => {
+  const addHistory = (code: ButtonTypes, result: string) => {
     dispatch(
       addToHistory({
         action: getActionSign(code as Actions) as string,
-        firstValue: monitorValueToChange,
-        secondValue: monitorValue,
-        result
+        firstValue: monitorValueToChange.replace('.', ','),
+        secondValue: monitorValue.replace('.', ','),
+        result: result.replace('.', ',')
       })
     );
   };
@@ -41,7 +41,9 @@ const useHandleButtonClick = () => {
   const handleEqualClick = () => {
     switch (action) {
       case Actions.PLUS: {
-        const result = monitorValueToChange + monitorValue;
+        const result = (
+          parseFloat(monitorValueToChange) + parseFloat(monitorValue)
+        ).toString();
 
         dispatch(setMonitorValue(result));
         addHistory(action, result);
@@ -50,7 +52,9 @@ const useHandleButtonClick = () => {
       }
 
       case Actions.MINUS: {
-        const result = monitorValueToChange - monitorValue;
+        const result = (
+          parseFloat(monitorValueToChange) - parseFloat(monitorValue)
+        ).toString();
 
         dispatch(setMonitorValue(result));
         addHistory(action, result);
@@ -59,7 +63,9 @@ const useHandleButtonClick = () => {
       }
 
       case Actions.MULTIPLY: {
-        const result = monitorValueToChange * monitorValue;
+        const result = (
+          parseFloat(monitorValueToChange) * parseFloat(monitorValue)
+        ).toString();
 
         dispatch(setMonitorValue(result));
         addHistory(action, result);
@@ -68,12 +74,14 @@ const useHandleButtonClick = () => {
       }
 
       case Actions.DIVIDE: {
-        if (monitorValue === 0) {
+        if (parseFloat(monitorValue) === 0) {
           setError("Number isn't divided by zero");
           return;
         }
 
-        const result = monitorValueToChange / monitorValue;
+        const result = (
+          parseFloat(monitorValueToChange) / parseFloat(monitorValue)
+        ).toString();
 
         dispatch(setMonitorValue(result));
         addHistory(action, result);
@@ -82,7 +90,10 @@ const useHandleButtonClick = () => {
       }
 
       case Actions.PERCENTAGE: {
-        const result = (monitorValueToChange * monitorValue) / 100;
+        const result = (
+          (parseFloat(monitorValueToChange) * parseFloat(monitorValue)) /
+          100
+        ).toString();
 
         dispatch(setMonitorValue(result));
         addHistory(action, result);
@@ -91,7 +102,7 @@ const useHandleButtonClick = () => {
       }
     }
 
-    dispatch(setMonitorValueToChange(0));
+    dispatch(setMonitorValueToChange('0'));
     dispatch(setAction(null));
     dispatch(setIsGotResult(true));
   };
@@ -100,30 +111,45 @@ const useHandleButtonClick = () => {
     setError('');
 
     switch (true) {
-      case !isNaN(+code): {
-        let value = `${monitorValue}${code}`;
+      case !isNaN(parseFloat(code as string)): {
+        let value;
+
+        if (parseFloat(monitorValue) !== 0) {
+          value = `${monitorValue}${code}`;
+        } else {
+          if (!monitorValue.includes('.')) {
+            value = `${code}`;
+          } else {
+            value = `${monitorValue}${code}`;
+          }
+        }
 
         if (isGotResult) {
           value = value.replace(`${monitorValue}`, '');
           dispatch(setIsGotResult(false));
         }
 
-        dispatch(setMonitorValue(+value));
+        dispatch(setMonitorValue(value));
+
         break;
       }
 
       case code === Actions.EQUAL: {
         handleEqualClick();
+
         break;
       }
 
       case code === Actions.PLUS: {
-        const result = monitorValueToChange + monitorValue;
+        const result = (
+          parseFloat(monitorValueToChange) + parseFloat(monitorValue)
+        ).toString();
 
         dispatch(setMonitorValueToChange(result));
         dispatch(setAction(code));
-        dispatch(setMonitorValue(0));
-        if (!!monitorValueToChange) {
+        dispatch(setMonitorValue('0'));
+
+        if (!!parseFloat(monitorValueToChange)) {
           addHistory(code, result);
         }
 
@@ -131,8 +157,10 @@ const useHandleButtonClick = () => {
       }
 
       case code === Actions.MINUS: {
-        if (!!monitorValueToChange) {
-          const result = monitorValueToChange - monitorValue;
+        if (!!parseFloat(monitorValueToChange)) {
+          const result = (
+            parseFloat(monitorValueToChange) - parseFloat(monitorValue)
+          ).toString();
 
           dispatch(setMonitorValueToChange(result));
           addHistory(code, result);
@@ -140,15 +168,17 @@ const useHandleButtonClick = () => {
           dispatch(setMonitorValueToChange(monitorValue));
         }
 
-        dispatch(setMonitorValue(0));
+        dispatch(setMonitorValue('0'));
         dispatch(setAction(code));
 
         break;
       }
 
       case code === Actions.MULTIPLY: {
-        if (!!monitorValueToChange) {
-          const result = monitorValueToChange * monitorValue;
+        if (!!parseFloat(monitorValueToChange)) {
+          const result = (
+            parseFloat(monitorValueToChange) * parseFloat(monitorValue)
+          ).toString();
 
           dispatch(setMonitorValueToChange(result));
           addHistory(code, result);
@@ -157,19 +187,21 @@ const useHandleButtonClick = () => {
         }
 
         dispatch(setAction(code));
-        dispatch(setMonitorValue(0));
+        dispatch(setMonitorValue('0'));
 
         break;
       }
 
       case code === Actions.DIVIDE: {
-        if (!!monitorValueToChange) {
-          if (monitorValue === 0) {
+        if (!!parseFloat(monitorValueToChange)) {
+          if (parseFloat(monitorValue) === 0) {
             setError("Number isn't divided by zero");
             return;
           }
 
-          const result = monitorValueToChange / monitorValue;
+          const result = (
+            parseFloat(monitorValueToChange) / parseFloat(monitorValue)
+          ).toString();
 
           dispatch(setMonitorValueToChange(result));
           addHistory(code, result);
@@ -178,14 +210,17 @@ const useHandleButtonClick = () => {
         }
 
         dispatch(setAction(code));
-        dispatch(setMonitorValue(0));
+        dispatch(setMonitorValue('0'));
 
         break;
       }
 
       case code === Actions.PERCENTAGE: {
-        if (!!monitorValueToChange) {
-          const result = (monitorValueToChange * monitorValue) / 100;
+        if (!!parseFloat(monitorValueToChange)) {
+          const result = (
+            (parseFloat(monitorValueToChange) * parseFloat(monitorValue)) /
+            100
+          ).toString();
 
           dispatch(setMonitorValueToChange(result));
           addHistory(code, result);
@@ -194,25 +229,33 @@ const useHandleButtonClick = () => {
         }
 
         dispatch(setAction(code));
-        dispatch(setMonitorValue(0));
+        dispatch(setMonitorValue('0'));
 
         break;
       }
 
       case code === Actions.CHANGE_SIGN: {
-        dispatch(setMonitorValue(-monitorValue));
+        dispatch(setMonitorValue(`-${monitorValue}`));
         break;
       }
 
       case code === Actions.CLEAR_MONITOR: {
-        dispatch(setMonitorValue(0));
+        dispatch(setMonitorValue('0'));
+        break;
+      }
+
+      case code === Actions.ADD_COMMA: {
+        if (!monitorValue.includes('.')) {
+          dispatch(setMonitorValue(`${monitorValue}.`));
+        }
+
         break;
       }
 
       case code === Actions.CLEAR: {
         dispatch(clearHistory());
-        dispatch(setMonitorValue(0));
-        dispatch(setMonitorValueToChange(0));
+        dispatch(setMonitorValue('0'));
+        dispatch(setMonitorValueToChange('0'));
         dispatch(setAction(null));
         break;
       }
