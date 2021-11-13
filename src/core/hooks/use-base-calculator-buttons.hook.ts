@@ -11,9 +11,9 @@ const useBaseCalculatorButtons = (): BaseCalculatorButton[] => [
     theme: ButtonTheme.DANGER
   },
   {
-    element: '( )',
-    code: Actions.BRACKETS,
-    theme: ButtonTheme.ACTION
+    element: 'CE',
+    code: Actions.CLEAR_MONITOR,
+    theme: ButtonTheme.DANGER
   },
   {
     element: '%',

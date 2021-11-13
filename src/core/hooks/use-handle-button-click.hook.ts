@@ -204,6 +204,11 @@ const useHandleButtonClick = () => {
         break;
       }
 
+      case code === Actions.CLEAR_MONITOR: {
+        dispatch(setMonitorValue(0));
+        break;
+      }
+
       case code === Actions.CLEAR: {
         dispatch(clearHistory());
         dispatch(setMonitorValue(0));

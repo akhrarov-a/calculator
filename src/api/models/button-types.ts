@@ -19,7 +19,7 @@ enum Numbers {
  */
 enum Actions {
   CLEAR = 'clear',
-  BRACKETS = 'brackets',
+  CLEAR_MONITOR = 'clear-monitor',
   PERCENTAGE = 'percentage',
   DIVIDE = 'divide',
   MULTIPLY = 'multiply',
