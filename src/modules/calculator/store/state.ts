@@ -1,5 +1,4 @@
-import { ButtonTypes, History } from '@api';
-import { AngleUnity } from '../../../api';
+import { AngleUnity, ButtonTypes, History } from '@api';
 
 /**
  * Calculator State

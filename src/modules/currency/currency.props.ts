@@ -1,8 +1,8 @@
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '@store';
-import { useEffect } from 'react';
+import { Currency } from '@api';
 import { getCurrencyData, setSelected, setValues } from './store';
-import { Currency } from '../../api';
 
 /**
  * Use Currency

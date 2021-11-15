@@ -1,18 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { Actions, ButtonTypes } from '@api';
+import { Actions, AngleUnity, ButtonTypes } from '@api';
 import { State } from '@store';
 import {
   addToHistory,
   clearHistory,
   setAction,
+  setAngleUnity,
   setErrorMessage,
   setIsGotResult,
   setMonitorValue,
   setMonitorValueToChange
 } from '@calculator/store';
 import { useGetActionSign } from './use-get-action-sign.hook';
-import { setAngleUnity } from '../../modules/calculator/store';
-import { AngleUnity } from '../../api';
 
 /**
  * Use Handle Button Click
