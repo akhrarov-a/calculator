@@ -4,6 +4,7 @@ import {
   addToHistory,
   clearHistory,
   setAction,
+  setAngleUnity,
   setErrorMessage,
   setIsGotResult,
   setMonitorValue,
@@ -34,6 +35,9 @@ const calculatorReducer = reducer(new CalculatorState())
   })
   .on(clearHistory, (state) => {
     state.history = [];
+  })
+  .on(setAngleUnity, (state, payload) => {
+    state.angleUnity = payload;
   });
 
 export { calculatorReducer };

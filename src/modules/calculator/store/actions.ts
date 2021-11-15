@@ -1,5 +1,5 @@
 import { make } from 'redux-chill';
-import { ButtonTypes, History } from '@api';
+import { AngleUnity, ButtonTypes, History } from '@api';
 
 /**
  * Set monitor value
@@ -48,6 +48,13 @@ const addToHistory = make('[calculator] add to history').stage(
  */
 const clearHistory = make('[calculator] clear history');
 
+/**
+ * Set angle unity
+ */
+const setAngleUnity = make('[calculator] set angle unity').stage(
+  (angleUnity: AngleUnity) => angleUnity
+);
+
 export {
   setMonitorValue,
   setMonitorValueToChange,
@@ -55,5 +62,6 @@ export {
   setIsGotResult,
   setErrorMessage,
   addToHistory,
-  clearHistory
+  clearHistory,
+  setAngleUnity
 };

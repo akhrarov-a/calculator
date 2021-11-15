@@ -11,15 +11,25 @@ import {
   setMonitorValueToChange
 } from '@calculator/store';
 import { useGetActionSign } from './use-get-action-sign.hook';
+import { setAngleUnity } from '../../modules/calculator/store';
+import { AngleUnity } from '../../api';
 
 /**
  * Use Handle Button Click
  */
 const useHandleButtonClick = () => {
+  const pi = 3.1415926535897932384626433832795;
+  const e = 2.7182818284590452353602874713527;
+
   const dispatch = useDispatch();
 
-  const { monitorValue, monitorValueToChange, action, isGotResult } =
-    useSelector((state: State) => state.calculator);
+  const {
+    monitorValue,
+    monitorValueToChange,
+    action,
+    isGotResult,
+    angleUnity
+  } = useSelector((state: State) => state.calculator);
 
   const { getActionSign } = useGetActionSign();
 
@@ -248,6 +258,27 @@ const useHandleButtonClick = () => {
         if (!monitorValue.includes('.')) {
           dispatch(setMonitorValue(`${monitorValue}.`));
         }
+
+        break;
+      }
+
+      case code === Actions.PI_NUMBER: {
+        dispatch(setMonitorValue(`${pi}`));
+
+        break;
+      }
+
+      case code === Actions.E_NUMBER: {
+        dispatch(setMonitorValue(`${e}`));
+
+        break;
+      }
+
+      case code === Actions.CHANGE_ANGLE_UNITY: {
+        const newAngleUnity =
+          angleUnity === AngleUnity.RAD ? AngleUnity.DEGREE : AngleUnity.RAD;
+
+        dispatch(setAngleUnity(newAngleUnity));
 
         break;
       }

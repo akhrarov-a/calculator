@@ -1,4 +1,5 @@
 import { ButtonTypes, History } from '@api';
+import { AngleUnity } from '../../../api';
 
 /**
  * Calculator State
@@ -33,6 +34,11 @@ class CalculatorState {
    * History
    */
   public history: History[] = [];
+
+  /**
+   * Angle unity
+   */
+  public angleUnity: AngleUnity = AngleUnity.RAD;
 }
 
 export { CalculatorState };

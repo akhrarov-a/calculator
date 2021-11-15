@@ -1,6 +1,6 @@
 import React from 'react';
 import { Content } from '@core';
-import { BaseCalculator, Monitor } from './components';
+import { AdvancedCalculator, BaseCalculator, Monitor } from './components';
 import styles from './calculator.module.scss';
 import { ActionsHistory } from './components/actions-history';
 
@@ -13,6 +13,7 @@ const Calculator = () => (
       <Monitor />
       <div className={styles.calculator}>
         <ActionsHistory />
+        <AdvancedCalculator />
         <BaseCalculator />
       </div>
     </Content>
