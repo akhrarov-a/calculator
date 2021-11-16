@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '@store';
-import { Currency, CurrencySides } from '@api';
-import { getCurrencyData, setFields, setSelected } from './store';
+import { CurrencySides } from '@api';
+import { useCalculateCurrencyRate } from '@core';
+import { getCurrencyData, setSelected } from './store';
 
 /**
  * Use Currency
@@ -10,43 +11,11 @@ import { getCurrencyData, setFields, setSelected } from './store';
 const useCurrency = () => {
   const dispatch = useDispatch();
 
+  const { calculateResults } = useCalculateCurrencyRate();
+
   const { currencies, selected, fields } = useSelector(
     (state: State) => state.currency
   );
-
-  const calculateResults = ({
-    key,
-    left,
-    right,
-    value
-  }: {
-    key: CurrencySides;
-    left: Currency | null;
-    right: Currency | null;
-    value: string | number;
-  }) => {
-    switch (key) {
-      case CurrencySides.LEFT: {
-        const rate = right?.rate as number;
-
-        const rightValue = (+value * rate) / (left?.rate as number);
-
-        dispatch(setFields({ left: +value, right: rightValue }));
-
-        break;
-      }
-
-      case CurrencySides.RIGHT: {
-        const rate = left?.rate as number;
-
-        const leftValue = (+value * rate) / (right?.rate as number);
-
-        dispatch(setFields({ left: leftValue, right: +value }));
-
-        break;
-      }
-    }
-  };
 
   const onFieldsChange = (key: CurrencySides, value: string | number) => {
     if (isNaN(+value)) return;

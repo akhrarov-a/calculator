@@ -21,12 +21,12 @@ const useHandleButtonClick = () => {
 
   const dispatch = useDispatch();
 
-  const { monitorValue, monitorValueToChange, isGotResult, angleUnity } =
-    useSelector((state: State) => state.calculator);
-
   const { handleEqualClick, setError } = useHandleEqualClick();
 
   const { addHistory } = useAddToHistory();
+
+  const { monitorValue, monitorValueToChange, isGotResult, angleUnity } =
+    useSelector((state: State) => state.calculator);
 
   const handleClick = (code: ButtonTypes) => {
     setError('');

@@ -16,11 +16,11 @@ import { useAddToHistory } from './use-add-to-history.hook';
 const useHandleEqualClick = () => {
   const dispatch = useDispatch();
 
+  const { addHistory } = useAddToHistory();
+
   const { monitorValue, monitorValueToChange, action } = useSelector(
     (state: State) => state.calculator
   );
-
-  const { addHistory } = useAddToHistory();
 
   const setError = (errorMessage: string) => {
     dispatch(setErrorMessage(errorMessage));
