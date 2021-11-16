@@ -1,6 +1,6 @@
 import { reducer } from 'redux-chill';
 import { CurrencyState } from './state';
-import { getCurrencyData, setSelected, setValues } from './actions';
+import { getCurrencyData, setFields, setSelected } from './actions';
 
 /**
  * Currency Reducer
@@ -12,20 +12,17 @@ const currencyReducer = reducer(new CurrencyState())
   })
   .on(getCurrencyData.success, (state, payload) => {
     state.currencies = payload;
-    state.firstSelected = payload[0];
-    state.secondSelected = payload[1];
+    state.selected.left = payload[0];
+    state.selected.right = payload[1];
   })
   .on(getCurrencyData.fail, (state, payload) => {
     state.error = payload;
   })
-  .on(setSelected.first, (state, payload) => {
-    state.firstSelected = payload;
+  .on(setSelected, (state, payload) => {
+    state.selected = { ...state.selected, ...payload };
   })
-  .on(setSelected.second, (state, payload) => {
-    state.secondSelected = payload;
-  })
-  .on(setValues, (state, payload) => {
-    state.values = { ...state.values, ...payload };
+  .on(setFields, (state, payload) => {
+    state.fields = { ...state.fields, ...payload };
   });
 
 export { currencyReducer };

@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '@store';
-import { Currency } from '@api';
-import { getCurrencyData, setSelected, setValues } from './store';
+import { getCurrencyData, setFields, setSelected } from './store';
+import { CurrencySides } from '@api';
 
 /**
  * Use Currency
@@ -10,50 +10,44 @@ import { getCurrencyData, setSelected, setValues } from './store';
 const useCurrency = () => {
   const dispatch = useDispatch();
 
-  const { currencies, firstSelected, secondSelected, values } = useSelector(
+  const { currencies, selected, fields } = useSelector(
     (state: State) => state.currency
   );
 
-  const onValuesChange = (
-    key: 'first' | 'second',
-    value: string | number,
-    changedCurrency?: Currency
-  ) => {
+  const onFieldsChange = (key: CurrencySides, value: string | number) => {
     if (isNaN(+value)) return;
 
+    const { left, right } = selected;
+
     switch (key) {
-      case 'first': {
-        const rate = (changedCurrency?.rate || secondSelected?.rate) as number;
+      case CurrencySides.LEFT: {
+        const rate = right?.rate as number;
 
-        const second = (+value * rate) / (firstSelected?.rate as number);
+        const rightValue = (+value * rate) / (left?.rate as number);
 
-        dispatch(setValues({ first: +value, second }));
+        dispatch(setFields({ left: +value, right: rightValue }));
 
         break;
       }
-      case 'second': {
-        const rate = (changedCurrency?.rate || firstSelected?.rate) as number;
 
-        const first = (+value * rate) / (secondSelected?.rate as number);
+      case CurrencySides.RIGHT: {
+        const rate = left?.rate as number;
 
-        dispatch(setValues({ first, second: +value }));
+        const leftValue = (+value * rate) / (right?.rate as number);
+
+        dispatch(setFields({ left: leftValue, right: +value }));
 
         break;
       }
     }
   };
 
-  const onSelect = (key: 'first' | 'second', value: string) => {
+  const onSelect = (key: CurrencySides, value: string) => {
     const currency = currencies.find(({ name }) => name === value);
 
     if (!currency) return;
 
-    dispatch(setSelected[key](currency));
-    onValuesChange(
-      key === 'first' ? 'second' : 'first',
-      key === 'first' ? values.second : values.first,
-      currency
-    );
+    dispatch(setSelected({ [key]: currency }));
   };
 
   useEffect(() => {
@@ -62,11 +56,10 @@ const useCurrency = () => {
 
   return {
     currencies,
-    firstSelected,
-    secondSelected,
-    values,
+    selected,
+    fields,
     onSelect,
-    onValuesChange
+    onFieldsChange
   };
 };
 

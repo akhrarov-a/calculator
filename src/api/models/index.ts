@@ -5,3 +5,4 @@ export * from './button-types';
 export * from './history';
 export * from './currency';
 export * from './angle-unity';
+export * from './currency-sides';

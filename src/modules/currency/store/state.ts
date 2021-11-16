@@ -10,21 +10,19 @@ class CurrencyState {
   public currencies: Currency[] = [];
 
   /**
-   * First selected
+   * Selected
    */
-  public firstSelected: Currency | null = null;
-
-  /**
-   * Second selected
-   */
-  public secondSelected: Currency | null = null;
+  public selected: { left: Currency | null; right: Currency | null } = {
+    left: null,
+    right: null
+  };
 
   /**
    * Fields
    */
-  public values = {
-    first: 0,
-    second: 0
+  public fields = {
+    left: 0,
+    right: 0
   };
 
   /**

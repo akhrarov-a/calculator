@@ -2,26 +2,22 @@ import React from 'react';
 import { Content, hoc } from '@core';
 import { useCurrency } from './currency.props';
 import styles from './currency.module.scss';
+import { CurrencySides } from '../../api';
 
 /**
  * Renders Currency
  */
 const Currency = hoc(
   useCurrency,
-  ({
-    currencies,
-    firstSelected,
-    secondSelected,
-    values,
-    onSelect,
-    onValuesChange
-  }) => (
+  ({ currencies, selected, fields, onSelect, onFieldsChange }) => (
     <Content>
       <div className={styles.container}>
         <div className={styles.currency}>
           <select
-            value={firstSelected?.name}
-            onChange={(event) => onSelect('first', event.target.value)}
+            value={selected.left?.name}
+            onChange={(event) =>
+              onSelect(CurrencySides.LEFT, event.target.value)
+            }
           >
             {currencies.map(({ name, rate }) => (
               <option label={name} key={`${name}-${rate}`} value={name} />
@@ -29,14 +25,18 @@ const Currency = hoc(
           </select>
           <input
             type='text'
-            value={values.first}
-            onChange={(event) => onValuesChange('first', event.target.value)}
+            value={fields.left}
+            onChange={(event) =>
+              onFieldsChange(CurrencySides.LEFT, event.target.value)
+            }
           />
         </div>
         <div className={styles.currency}>
           <select
-            value={secondSelected?.name}
-            onChange={(event) => onSelect('second', event.target.value)}
+            value={selected.right?.name}
+            onChange={(event) =>
+              onSelect(CurrencySides.RIGHT, event.target.value)
+            }
           >
             {currencies.map(({ name, rate }) => (
               <option label={name} key={`${name}-${rate}`} value={name} />
@@ -44,8 +44,10 @@ const Currency = hoc(
           </select>
           <input
             type='text'
-            value={values.second}
-            onChange={(event) => onValuesChange('second', event.target.value)}
+            value={fields.right}
+            onChange={(event) =>
+              onFieldsChange(CurrencySides.RIGHT, event.target.value)
+            }
           />
         </div>
       </div>

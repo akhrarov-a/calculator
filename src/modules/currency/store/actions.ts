@@ -11,15 +11,15 @@ const getCurrencyData = make('[currency] get')
 /**
  * Set selected
  */
-const setSelected = make('[currency] set selected')
-  .stage('first', (currency: Currency) => currency)
-  .stage('second', (currency: Currency) => currency);
-
-/**
- * Set values
- */
-const setValues = make('[currency] set values').stage(
-  (values: { first?: number; second?: number }) => values
+const setSelected = make('[currency] set selected').stage(
+  (selected: { left?: Currency; second?: Currency }) => selected
 );
 
-export { getCurrencyData, setSelected, setValues };
+/**
+ * Set fields
+ */
+const setFields = make('[currency] set values').stage(
+  (fields: { left?: number; right?: number }) => fields
+);
+
+export { getCurrencyData, setSelected, setFields };
