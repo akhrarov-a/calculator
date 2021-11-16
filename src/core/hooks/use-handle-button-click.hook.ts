@@ -33,14 +33,77 @@ const useHandleButtonClick = () => {
   const { getActionSign } = useGetActionSign();
 
   const addHistory = (code: ButtonTypes, result: string) => {
-    dispatch(
-      addToHistory({
-        action: getActionSign(code as Actions) as string,
-        firstValue: monitorValueToChange.replace('.', ','),
-        secondValue: monitorValue.replace('.', ','),
-        result: result.replace('.', ',')
-      })
-    );
+    const action = getActionSign(code as Actions) as string;
+
+    const singleActions = [
+      Actions.SQRT,
+      Actions.LN,
+      Actions.LOG,
+      Actions.E_DEGREE
+    ];
+    const isSingleAction = singleActions.some((c) => c === code);
+
+    switch (true) {
+      case code === Actions.NUMBER_DEGREE: {
+        const number = monitorValue.split('^')[0];
+        const degree = monitorValue.split('^')[1];
+
+        dispatch(
+          addToHistory({
+            action: action.replace('x', number).replace('y', degree),
+            firstValue: '',
+            secondValue: '',
+            result
+          })
+        );
+
+        break;
+      }
+
+      case code === Actions.FACTORIAL:
+      case code === Actions.CUBE_OF_NUMBER:
+      case code === Actions.DEGREE_OF_TEN:
+      case code === Actions.DEGREE_OF_TWO:
+      case code === Actions.ABS_NUMBER:
+      case code === Actions.SQR:
+      case code === Actions.E_DEGREE:
+      case code === Actions.ONE_DIVIDED_BY_NUMBER: {
+        dispatch(
+          addToHistory({
+            action: action.replace('x', monitorValue),
+            firstValue: '',
+            secondValue: '',
+            result: result.replace('.', ',')
+          })
+        );
+
+        break;
+      }
+
+      case isSingleAction: {
+        dispatch(
+          addToHistory({
+            action,
+            firstValue: '',
+            secondValue: monitorValue.replace('.', ','),
+            result: result.replace('.', ',')
+          })
+        );
+
+        break;
+      }
+
+      default: {
+        dispatch(
+          addToHistory({
+            action,
+            firstValue: monitorValueToChange.replace('.', ',') || '',
+            secondValue: monitorValue.replace('.', ',') || '',
+            result: result.replace('.', ',')
+          })
+        );
+      }
+    }
   };
 
   const setError = (errorMessage: string) => {
@@ -102,6 +165,29 @@ const useHandleButtonClick = () => {
         const result = (
           (parseFloat(monitorValueToChange) * parseFloat(monitorValue)) /
           100
+        ).toString();
+
+        dispatch(setMonitorValue(result));
+        addHistory(action, result);
+
+        break;
+      }
+
+      case Actions.NUMBER_DEGREE: {
+        const result = (
+          parseFloat(monitorValue.split('^')[0]) **
+          parseFloat(monitorValue.split('^')[1])
+        ).toString();
+
+        dispatch(setMonitorValue(result));
+        addHistory(action, result);
+
+        break;
+      }
+
+      case Actions.MOD: {
+        const result = (
+          parseFloat(monitorValueToChange) % parseFloat(monitorValue)
         ).toString();
 
         dispatch(setMonitorValue(result));
@@ -278,6 +364,128 @@ const useHandleButtonClick = () => {
           angleUnity === AngleUnity.RAD ? AngleUnity.DEGREE : AngleUnity.RAD;
 
         dispatch(setAngleUnity(newAngleUnity));
+
+        break;
+      }
+
+      case code === Actions.SQRT: {
+        const value = `${Math.sqrt(parseFloat(monitorValue))}`;
+
+        dispatch(setMonitorValue(value));
+        addHistory(code, value);
+
+        break;
+      }
+
+      case code === Actions.LN: {
+        const value = `${Math.log(parseFloat(monitorValue))}`;
+
+        dispatch(setMonitorValue(value));
+        addHistory(code, value);
+
+        break;
+      }
+
+      case code === Actions.LOG: {
+        const value = `${Math.log10(parseFloat(monitorValue))}`;
+
+        dispatch(setMonitorValue(value));
+        addHistory(code, value);
+
+        break;
+      }
+
+      case code === Actions.ONE_DIVIDED_BY_NUMBER: {
+        const value = `${1 / parseFloat(monitorValue)}`;
+
+        dispatch(setMonitorValue(value));
+        addHistory(code, value);
+
+        break;
+      }
+
+      case code === Actions.E_DEGREE: {
+        const value = `${e ** parseFloat(monitorValue)}`;
+
+        dispatch(setMonitorValue(value));
+        addHistory(code, value);
+
+        break;
+      }
+
+      case code === Actions.SQR: {
+        const value = `${parseFloat(monitorValue) * parseFloat(monitorValue)}`;
+
+        dispatch(setMonitorValue(value));
+        addHistory(code, value);
+
+        break;
+      }
+
+      case code === Actions.NUMBER_DEGREE: {
+        if (monitorValue.includes('^')) return;
+
+        dispatch(setMonitorValue(`${monitorValue}^`));
+        dispatch(setAction(code));
+
+        break;
+      }
+
+      case code === Actions.ABS_NUMBER: {
+        const value = `${Math.abs(parseFloat(monitorValue))}`;
+
+        dispatch(setMonitorValue(value));
+        addHistory(code, value);
+
+        break;
+      }
+
+      case code === Actions.DEGREE_OF_TWO: {
+        const value = `${2 ** parseFloat(monitorValue)}`;
+
+        dispatch(setMonitorValue(value));
+        addHistory(code, value);
+
+        break;
+      }
+
+      case code === Actions.DEGREE_OF_TEN: {
+        const value = `${10 ** parseFloat(monitorValue)}`;
+
+        dispatch(setMonitorValue(value));
+        addHistory(code, value);
+
+        break;
+      }
+
+      case code === Actions.CUBE_OF_NUMBER: {
+        const value = `${parseFloat(monitorValue) ** 3}`;
+
+        dispatch(setMonitorValue(value));
+        addHistory(code, value);
+
+        break;
+      }
+
+      case code === Actions.FACTORIAL: {
+        let value: number | string = 1;
+
+        for (let i = 1; i <= parseFloat(monitorValue); i++) {
+          value *= i;
+        }
+
+        value = `${value}`;
+
+        dispatch(setMonitorValue(value));
+        addHistory(code, value);
+
+        break;
+      }
+
+      case code === Actions.MOD: {
+        dispatch(setMonitorValueToChange(`${monitorValue}`));
+        dispatch(setMonitorValue('0'));
+        dispatch(setAction(code));
 
         break;
       }
