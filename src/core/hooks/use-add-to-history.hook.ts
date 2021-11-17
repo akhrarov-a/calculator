@@ -23,7 +23,10 @@ const useAddToHistory = () => {
       Actions.SQRT,
       Actions.LN,
       Actions.LOG,
-      Actions.E_DEGREE
+      Actions.E_DEGREE,
+      Actions.SINUS,
+      Actions.COSINUS,
+      Actions.TAN
     ];
     const isSingleAction = singleActions.some((c) => c === code);
 
@@ -35,6 +38,27 @@ const useAddToHistory = () => {
         dispatch(
           addToHistory({
             action: action.replace('x', number).replace('y', degree),
+            firstValue: '',
+            secondValue: '',
+            result
+          })
+        );
+
+        break;
+      }
+
+      case code === Actions.ARC_COSINUS:
+      case code === Actions.ARC_TAN:
+      case code === Actions.ARC_SINUS: {
+        const actions = {
+          [Actions.ARC_SINUS]: 'arcsin',
+          [Actions.ARC_COSINUS]: 'arccos',
+          [Actions.ARC_TAN]: 'arctan'
+        };
+
+        dispatch(
+          addToHistory({
+            action: `${actions[code]}${monitorValue}`,
             firstValue: '',
             secondValue: '',
             result

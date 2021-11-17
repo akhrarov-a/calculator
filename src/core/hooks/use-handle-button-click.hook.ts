@@ -28,6 +28,11 @@ const useHandleButtonClick = () => {
   const { monitorValue, monitorValueToChange, isGotResult, angleUnity } =
     useSelector((state: State) => state.calculator);
 
+  const getInRadian = (value: string) =>
+    angleUnity === AngleUnity.RAD
+      ? parseFloat(value)
+      : (parseFloat(value) * pi) / 180;
+
   const handleClick = (code: ButtonTypes) => {
     setError('');
 
@@ -156,6 +161,8 @@ const useHandleButtonClick = () => {
       }
 
       case code === Actions.CHANGE_SIGN: {
+        if (parseFloat(monitorValue) === 0) return;
+
         dispatch(setMonitorValue(`-${monitorValue}`));
         break;
       }
@@ -312,6 +319,63 @@ const useHandleButtonClick = () => {
         dispatch(setMonitorValueToChange(`${monitorValue}`));
         dispatch(setMonitorValue('0'));
         dispatch(setAction(code));
+
+        break;
+      }
+
+      case code === Actions.SINUS: {
+        const angleRadian = getInRadian(monitorValue);
+        const value = `${Math.sin(angleRadian)}`;
+
+        dispatch(setMonitorValue(value));
+        addHistory(code, value);
+
+        break;
+      }
+
+      case code === Actions.COSINUS: {
+        const angleRadian = getInRadian(monitorValue);
+        const value = `${Math.cos(angleRadian)}`;
+
+        dispatch(setMonitorValue(value));
+        addHistory(code, value);
+
+        break;
+      }
+
+      case code === Actions.TAN: {
+        const angleRadian = getInRadian(monitorValue);
+        const value = `${Math.tan(angleRadian)}`;
+
+        dispatch(setMonitorValue(value));
+        addHistory(code, value);
+
+        break;
+      }
+
+      case code === Actions.ARC_SINUS: {
+        const value = `${Math.asin(parseFloat(monitorValue))}`;
+
+        dispatch(setMonitorValue(value));
+        addHistory(code, value);
+
+        break;
+      }
+
+      case code === Actions.ARC_COSINUS: {
+        const value = `${Math.acos(parseFloat(monitorValue))}`;
+
+        dispatch(setMonitorValue(value));
+        addHistory(code, value);
+
+        break;
+      }
+
+      case code === Actions.ARC_TAN: {
+        const value = `${Math.atan(parseFloat(monitorValue))}`;
+
+        dispatch(setMonitorValue(value));
+        addHistory(code, value);
 
         break;
       }
