@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '@store';
-import { useGetActionSign } from '@core';
+import { useMonitorActionDesc } from '@core';
 import { setMonitorValue } from '../../store';
 
 /**
@@ -9,9 +9,9 @@ import { setMonitorValue } from '../../store';
 const useMonitor = () => {
   const dispatch = useDispatch();
 
-  const { actionSign } = useGetActionSign();
+  const { actionDesc } = useMonitorActionDesc();
 
-  const { monitorValue, monitorValueToChange, errorMessage } = useSelector(
+  const { monitorValue, errorMessage } = useSelector(
     (state: State) => state.calculator
   );
 
@@ -22,9 +22,8 @@ const useMonitor = () => {
   };
 
   return {
-    actionSign,
+    actionDesc,
     monitorValue: monitorValue.replace('.', ','),
-    monitorValueToChange: monitorValueToChange.replace('.', ','),
     errorMessage,
     onBackspaceClick
   };

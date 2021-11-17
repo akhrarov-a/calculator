@@ -204,7 +204,9 @@ const useHandleButtonClick = () => {
       case code === Actions.SQRT: {
         const value = `${Math.sqrt(parseFloat(monitorValue))}`;
 
+        dispatch(setMonitorValueToChange(monitorValue));
         dispatch(setMonitorValue(value));
+        dispatch(setAction(code));
         addHistory(code, value);
 
         break;
@@ -213,7 +215,9 @@ const useHandleButtonClick = () => {
       case code === Actions.LN: {
         const value = `${Math.log(parseFloat(monitorValue))}`;
 
+        dispatch(setMonitorValueToChange(monitorValue));
         dispatch(setMonitorValue(value));
+        dispatch(setAction(code));
         addHistory(code, value);
 
         break;
@@ -222,7 +226,9 @@ const useHandleButtonClick = () => {
       case code === Actions.LOG: {
         const value = `${Math.log10(parseFloat(monitorValue))}`;
 
+        dispatch(setMonitorValueToChange(monitorValue));
         dispatch(setMonitorValue(value));
+        dispatch(setAction(code));
         addHistory(code, value);
 
         break;
@@ -231,7 +237,9 @@ const useHandleButtonClick = () => {
       case code === Actions.ONE_DIVIDED_BY_NUMBER: {
         const value = `${1 / parseFloat(monitorValue)}`;
 
+        dispatch(setMonitorValueToChange(monitorValue));
         dispatch(setMonitorValue(value));
+        dispatch(setAction(code));
         addHistory(code, value);
 
         break;
@@ -240,7 +248,9 @@ const useHandleButtonClick = () => {
       case code === Actions.E_DEGREE: {
         const value = `${e ** parseFloat(monitorValue)}`;
 
+        dispatch(setMonitorValueToChange(monitorValue));
         dispatch(setMonitorValue(value));
+        dispatch(setAction(code));
         addHistory(code, value);
 
         break;
@@ -249,7 +259,9 @@ const useHandleButtonClick = () => {
       case code === Actions.SQR: {
         const value = `${parseFloat(monitorValue) * parseFloat(monitorValue)}`;
 
+        dispatch(setMonitorValueToChange(monitorValue));
         dispatch(setMonitorValue(value));
+        dispatch(setAction(code));
         addHistory(code, value);
 
         break;
@@ -267,7 +279,9 @@ const useHandleButtonClick = () => {
       case code === Actions.ABS_NUMBER: {
         const value = `${Math.abs(parseFloat(monitorValue))}`;
 
+        dispatch(setMonitorValueToChange(monitorValue));
         dispatch(setMonitorValue(value));
+        dispatch(setAction(code));
         addHistory(code, value);
 
         break;
@@ -276,7 +290,9 @@ const useHandleButtonClick = () => {
       case code === Actions.DEGREE_OF_TWO: {
         const value = `${2 ** parseFloat(monitorValue)}`;
 
+        dispatch(setMonitorValueToChange(monitorValue));
         dispatch(setMonitorValue(value));
+        dispatch(setAction(code));
         addHistory(code, value);
 
         break;
@@ -285,7 +301,9 @@ const useHandleButtonClick = () => {
       case code === Actions.DEGREE_OF_TEN: {
         const value = `${10 ** parseFloat(monitorValue)}`;
 
+        dispatch(setMonitorValueToChange(monitorValue));
         dispatch(setMonitorValue(value));
+        dispatch(setAction(code));
         addHistory(code, value);
 
         break;
@@ -294,7 +312,9 @@ const useHandleButtonClick = () => {
       case code === Actions.CUBE_OF_NUMBER: {
         const value = `${parseFloat(monitorValue) ** 3}`;
 
+        dispatch(setMonitorValueToChange(monitorValue));
         dispatch(setMonitorValue(value));
+        dispatch(setAction(code));
         addHistory(code, value);
 
         break;
@@ -309,7 +329,9 @@ const useHandleButtonClick = () => {
 
         value = `${value}`;
 
+        dispatch(setMonitorValueToChange(monitorValue));
         dispatch(setMonitorValue(value));
+        dispatch(setAction(code));
         addHistory(code, value);
 
         break;
@@ -327,7 +349,9 @@ const useHandleButtonClick = () => {
         const angleRadian = getInRadian(monitorValue);
         const value = `${Math.sin(angleRadian)}`;
 
+        dispatch(setMonitorValueToChange(monitorValue));
         dispatch(setMonitorValue(value));
+        dispatch(setAction(code));
         addHistory(code, value);
 
         break;
@@ -337,7 +361,9 @@ const useHandleButtonClick = () => {
         const angleRadian = getInRadian(monitorValue);
         const value = `${Math.cos(angleRadian)}`;
 
+        dispatch(setMonitorValueToChange(monitorValue));
         dispatch(setMonitorValue(value));
+        dispatch(setAction(code));
         addHistory(code, value);
 
         break;
@@ -347,34 +373,60 @@ const useHandleButtonClick = () => {
         const angleRadian = getInRadian(monitorValue);
         const value = `${Math.tan(angleRadian)}`;
 
+        dispatch(setMonitorValueToChange(monitorValue));
         dispatch(setMonitorValue(value));
+        dispatch(setAction(code));
         addHistory(code, value);
 
         break;
       }
 
       case code === Actions.ARC_SINUS: {
+        if (parseFloat(monitorValue) > 1) {
+          setError('Sinus is between 1 and -1');
+
+          break;
+        }
+
         const value = `${Math.asin(parseFloat(monitorValue))}`;
 
+        dispatch(setMonitorValueToChange(monitorValue));
         dispatch(setMonitorValue(value));
+        dispatch(setAction(code));
         addHistory(code, value);
 
         break;
       }
 
       case code === Actions.ARC_COSINUS: {
+        if (parseFloat(monitorValue) > 1) {
+          setError('Cosinus is between 1 and -1');
+
+          break;
+        }
+
         const value = `${Math.acos(parseFloat(monitorValue))}`;
 
+        dispatch(setMonitorValueToChange(monitorValue));
         dispatch(setMonitorValue(value));
+        dispatch(setAction(code));
         addHistory(code, value);
 
         break;
       }
 
       case code === Actions.ARC_TAN: {
+        if (parseFloat(monitorValue) > 1) {
+          setError('Tan is between 1 and -1');
+
+          break;
+        }
+
         const value = `${Math.atan(parseFloat(monitorValue))}`;
 
+        dispatch(setMonitorValueToChange(monitorValue));
         dispatch(setMonitorValue(value));
+        dispatch(setAction(code));
         addHistory(code, value);
 
         break;

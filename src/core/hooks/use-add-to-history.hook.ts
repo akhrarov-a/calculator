@@ -3,6 +3,7 @@ import { Actions, ButtonTypes } from '@api';
 import { addToHistory } from '@calculator/store';
 import { State } from '@store';
 import { useGetActionSign } from './use-get-action-sign.hook';
+import { useCheckActions } from './use-check-actions.hook';
 
 /**
  * Use Add To History
@@ -12,23 +13,14 @@ const useAddToHistory = () => {
 
   const { getActionSign } = useGetActionSign();
 
+  const { checkIsSingleAction, checkReplaceXAction } = useCheckActions();
+
   const { monitorValue, monitorValueToChange } = useSelector(
     (state: State) => state.calculator
   );
 
   const addHistory = (code: ButtonTypes, result: string) => {
     const action = getActionSign(code as Actions) as string;
-
-    const singleActions = [
-      Actions.SQRT,
-      Actions.LN,
-      Actions.LOG,
-      Actions.E_DEGREE,
-      Actions.SINUS,
-      Actions.COSINUS,
-      Actions.TAN
-    ];
-    const isSingleAction = singleActions.some((c) => c === code);
 
     switch (true) {
       case code === Actions.NUMBER_DEGREE: {
@@ -68,14 +60,7 @@ const useAddToHistory = () => {
         break;
       }
 
-      case code === Actions.FACTORIAL:
-      case code === Actions.CUBE_OF_NUMBER:
-      case code === Actions.DEGREE_OF_TEN:
-      case code === Actions.DEGREE_OF_TWO:
-      case code === Actions.ABS_NUMBER:
-      case code === Actions.SQR:
-      case code === Actions.E_DEGREE:
-      case code === Actions.ONE_DIVIDED_BY_NUMBER: {
+      case checkReplaceXAction(code): {
         dispatch(
           addToHistory({
             action: action.replace('x', monitorValue),
@@ -88,7 +73,7 @@ const useAddToHistory = () => {
         break;
       }
 
-      case isSingleAction: {
+      case checkIsSingleAction(code): {
         dispatch(
           addToHistory({
             action,
