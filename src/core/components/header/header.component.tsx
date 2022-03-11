@@ -12,7 +12,7 @@ const Header = () => (
     <Content>
       <div className={styles.header}>
         <div>
-          <h1 className={styles.title}>Calculator - Cicada</h1>
+          <h1 className={styles.title}>Calculator</h1>
         </div>
         <div>
           <NavLink
